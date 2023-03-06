@@ -1,12 +1,12 @@
 package com.springboot.apisesiones.repository;
 
-import com.springboot.apisesiones.entity.Sesion;
+import com.springboot.apisesiones.entity.CreateSesion;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface SesionRepository extends JpaRepository<Sesion,Long> {
+public interface SesionRepository extends JpaRepository<CreateSesion,Long> {
 
-     Sesion findByIp(String ip);
+     CreateSesion findByIp(String ip);
 
-     Sesion findByCedula(String cedula);
+     CreateSesion findByCedula(String cedula);
 }

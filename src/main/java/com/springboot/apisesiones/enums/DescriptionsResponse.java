@@ -2,8 +2,12 @@ package com.springboot.apisesiones.enums;
 
 public enum DescriptionsResponse {
 
-    MSJ_ESTADO("Exitoso"),
+    MSJ_ESTADO_EXITOSO("Exitoso"),
+    MSJ_ESTADO_ERROR("Ocurrio un error"),
     MSJ_DESCRIPCION_CREACION_EXITOSA("La sesion ha sido creada exitosamente"),
+    MSJ_DESCRIPCION_VALIDACION_EXITOSA("La sesion ha sido validada exitosamente"),
+    MSJ_DESCRIPCION_ELIMINACION_EXITOSA("La sesion ha sido eliminada exitosamente"),
+    MSJ_DESCRIPCION_SESION_NO_EXISTE("La sesion no ha sido creada"),
     MSJ_DESCRIPCION_IP_OBLIGATORIA("El parámetro Ip es obligatorio"),
     MSJ_DESCRIPCION_IP_INCORRECTO("El parámetro Ip es incorrecto"),
     MSJ_DESCRIPCION_CC_OBLIGATORIA("El parámetro Cedula es obligatorio"),

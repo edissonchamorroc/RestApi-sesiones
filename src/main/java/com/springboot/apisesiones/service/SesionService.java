@@ -1,6 +1,7 @@
 package com.springboot.apisesiones.service;
 
-import com.springboot.apisesiones.entity.Sesion;
+import com.springboot.apisesiones.entity.CreateSesion;
+import com.springboot.apisesiones.entity.ValidateDeleteSesion;
 import com.springboot.apisesiones.repository.SesionRepository;
 import com.springboot.apisesiones.utility.BodyResponse;
 import com.springboot.apisesiones.utility.Validate;
@@ -15,7 +16,7 @@ public class SesionService {
     @Autowired
     private SesionRepository sesionRepository;
 
-    public Map<String, Object> createSesion(Sesion newSesion) {
+    public Map<String, Object> createSesion(CreateSesion newSesion) {
 
         if (Validate.parametersCreation(newSesion) == null) {
 
@@ -27,14 +28,17 @@ public class SesionService {
 
     }
 
-    public Map<String, Object> validateSesion(Sesion sesion) {
+    public Map<String, Object> validateSesion(ValidateDeleteSesion sesion) {
 
-        if (Validate.parametersValidation(sesion) == null &&
-                sesionRepository.findByCedula(sesion.getCedula()) != null) {
+        if (Validate.parametersValidation(sesion,sesionRepository.findByCedula(sesion.getCedula())) == null) {
 
-            return BodyResponse.correcta("validacion", sesion);
+            if (sesionRepository.findByCedula(sesion.getCedula()) != null) {
 
-        } else return Validate.parametersValidation(sesion);
+                return BodyResponse.correcta("validacion", sesionRepository.findByCedula(sesion.getCedula()));
+            }
+            return BodyResponse.correcta("no-existe", sesion);
+
+        } else return Validate.parametersValidation(sesion, sesionRepository.findByCedula(sesion.getCedula()));
     }
 
 }

@@ -1,6 +1,6 @@
 package com.springboot.apisesiones.controller;
 
-import com.springboot.apisesiones.entity.Sesion;
+import com.springboot.apisesiones.entity.CreateSesion;
 import com.springboot.apisesiones.model.ResponseCreateBad;
 import com.springboot.apisesiones.model.ResponseCreateOk;
 import com.springboot.apisesiones.service.SesionService;
@@ -31,8 +31,8 @@ public class SesionController {
             @ApiResponse(code = 400, message = "Bad Request, la sesión no pudo ser creada", response = ResponseCreateBad.class),
             @ApiResponse(code = 500, message = "Error inesperado del sistema")})
     @PostMapping(path = "/crear", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> crearSesion(@RequestBody Sesion newSesion) {
+    public ResponseEntity<Object> crearSesion(@RequestBody CreateSesion newCreateSesion) {
 
-        return new ResponseEntity<Object>(this.sesionService.createSesion(newSesion), HttpStatus.OK);
+        return new ResponseEntity<Object>(this.sesionService.createSesion(newCreateSesion), HttpStatus.OK);
     }
 }

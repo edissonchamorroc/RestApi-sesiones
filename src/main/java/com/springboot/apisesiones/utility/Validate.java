@@ -1,6 +1,7 @@
 package com.springboot.apisesiones.utility;
 
-import com.springboot.apisesiones.entity.Sesion;
+import com.springboot.apisesiones.entity.CreateSesion;
+import com.springboot.apisesiones.entity.ValidateDeleteSesion;
 import com.springboot.apisesiones.enums.DescriptionsResponse;
 import com.springboot.apisesiones.enums.ParametersResponse;
 import com.springboot.apisesiones.enums.ResponseCode;
@@ -20,31 +21,12 @@ public class Validate {
     private static List<Map<String, Object>> listResponse;
 
 
-    public static Map<String, Object> parametersCreation(Sesion sesion) {
+    public static Map<String, Object> parametersCreation(CreateSesion createSesion) {
 
-        if (validateIp(sesion)
-                || validateCedula(sesion)
-                || validateFechaInicio(sesion)
-                || validateHoraInicio(sesion)) {
-
-            Map<String, Object> response = new HashMap<>();
-            response.put(ParametersResponse.CODIGO.getParameter(), ResponseCode.IP_OBLIGATORIO.getMsjCode());
-            response.put(ParametersResponse.DESCRIPCION.getParameter(), DescriptionsResponse.MSJ_DESCRIPCION_ERROR_PARAMETRO.getDescription());
-            response.put(ParametersResponse.DETALLES.getParameter(), listResponse);
-
-            return response;
-
-        }
-
-        return null;
-    }
-
-    public static Map<String, Object> parametersValidation(Sesion sesion) {
-
-        if (validateIp(sesion)
-                || validateCedula(sesion)
-                || validateFechaInicio(sesion)
-                || validateHoraInicio(sesion)) {
+        if (validateIp(createSesion)
+                || validateCedula(createSesion)
+                || validateFechaInicio(createSesion)
+                || validateHoraInicio(createSesion)) {
 
             Map<String, Object> response = new HashMap<>();
             response.put(ParametersResponse.CODIGO.getParameter(), ResponseCode.IP_OBLIGATORIO.getMsjCode());
@@ -58,18 +40,44 @@ public class Validate {
         return null;
     }
 
-    public static boolean validateHoraInicio(Sesion sesion) {
+    public static Map<String, Object> parametersValidation(ValidateDeleteSesion validateCreateSesion, CreateSesion cratedCreateSesion) {
 
-        if (sesion.getHoraInicio() == null) {
+        if (validateIp(validateCreateSesion)
+                || validateCedula(validateCreateSesion)
+                || validateFechaInicio(validateCreateSesion)
+                || validateHoraInicio(validateCreateSesion)
+                || validateJwt(validateCreateSesion, cratedCreateSesion)) {
+
+            Map<String, Object> response = new HashMap<>();
+            response.put(ParametersResponse.CODIGO.getParameter(), ResponseCode.IP_OBLIGATORIO.getMsjCode());
+            response.put(ParametersResponse.DESCRIPCION.getParameter(), DescriptionsResponse.MSJ_DESCRIPCION_ERROR_PARAMETRO.getDescription());
+            response.put(ParametersResponse.DETALLES.getParameter(), listResponse);
+
+            return response;
+
+        }
+
+        return null;
+    }
+
+    public static boolean validateJwt(ValidateDeleteSesion validateCreateSesion, CreateSesion cratedCreateSesion) {
+
+        if (JwtToken.getJWTToken(cratedCreateSesion).equals(validateCreateSesion.getJwt())) return false;
+        else return true;
+    }
+
+    public static boolean validateHoraInicio(CreateSesion createSesion) {
+
+        if (createSesion.getHoraInicio() == null) {
 
             listResponse = new ArrayList<>();
             listResponse.add(BodyResponse.error("hi-obligatorio"));
 
             return true;
 
-        } else if (contieneCaracterEspecial(sesion.getHoraInicio(), ":")
-                || contieneLetras(sesion.getHoraInicio())
-                || malRangoTiempo(sesion.getHoraInicio())) {
+        } else if (contieneCaracterEspecial(createSesion.getHoraInicio(), ":")
+                || contieneLetras(createSesion.getHoraInicio())
+                || malRangoTiempo(createSesion.getHoraInicio())) {
 
 
             listResponse = new ArrayList<>();
@@ -82,19 +90,19 @@ public class Validate {
     }
 
 
-    public static boolean validateFechaInicio(Sesion sesion) {
+    public static boolean validateFechaInicio(CreateSesion createSesion) {
 
         String fechaHoy = new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis()));
 
-        if (sesion.getFechaInicio() == null) {
+        if (createSesion.getFechaInicio() == null) {
 
             listResponse = new ArrayList<>();
             listResponse.add(BodyResponse.error("fh-obligatorio"));
 
             return true;
 
-        } else if (contieneCaracterEspecial(sesion.getFechaInicio(), "/")
-                || !sesion.getFechaInicio().equals(fechaHoy)
+        } else if (contieneCaracterEspecial(createSesion.getFechaInicio(), "/")
+                || !createSesion.getFechaInicio().equals(fechaHoy)
         ) {
 
 
@@ -108,16 +116,16 @@ public class Validate {
 
     }
 
-    public static boolean validateCedula(Sesion sesion) {
+    public static boolean validateCedula(CreateSesion createSesion) {
 
-        if (sesion.getCedula() == null) {
+        if (createSesion.getCedula() == null) {
 
             listResponse = new ArrayList<>();
             listResponse.add(BodyResponse.error("cc-obligatorio"));
 
             return true;
 
-        } else if (contieneCaracterEspecial(sesion.getCedula(), "")) {
+        } else if (contieneCaracterEspecial(createSesion.getCedula(), "")) {
 
 
             listResponse = new ArrayList<>();
@@ -125,7 +133,7 @@ public class Validate {
 
             return true;
 
-        } else if (cantidadDigitos(sesion.getCedula())) {
+        } else if (cantidadDigitos(createSesion.getCedula())) {
 
             listResponse = new ArrayList<>();
             listResponse.add(BodyResponse.error("cc-incompleto"));
@@ -136,17 +144,17 @@ public class Validate {
 
     }
 
-    public static boolean validateIp(Sesion sesion) {
+    public static boolean validateIp(CreateSesion createSesion) {
 
-        if (sesion.getIp() == null) {
+        if (createSesion.getIp() == null) {
 
             listResponse = new ArrayList<>();
             listResponse.add(BodyResponse.error("ip-obligatorio"));
 
             return true;
 
-        } else if (camposEnIP(sesion.getIp()) < 4 || camposEnIP(sesion.getIp()) > 4
-                || !rangosEnCampo(sesion.getIp(), SPLITER_DOT, 0, 255)) {
+        } else if (camposEnIP(createSesion.getIp()) < 4 || camposEnIP(createSesion.getIp()) > 4
+                || !rangosEnCampo(createSesion.getIp(), SPLITER_DOT, 0, 255)) {
 
 
             listResponse = new ArrayList<>();

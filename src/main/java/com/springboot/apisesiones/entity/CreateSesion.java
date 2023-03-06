@@ -6,12 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
 
 @Entity
 @NoArgsConstructor
-public class Sesion {
+public class CreateSesion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

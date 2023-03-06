@@ -1,6 +1,6 @@
 package com.springboot.apisesiones.utility;
 
-import com.springboot.apisesiones.entity.Sesion;
+import com.springboot.apisesiones.entity.CreateSesion;
 import com.springboot.apisesiones.enums.DescriptionsResponse;
 import com.springboot.apisesiones.enums.ParametersResponse;
 import com.springboot.apisesiones.enums.ResponseCode;
@@ -77,24 +77,34 @@ public class BodyResponse {
         return response;
     }
 
-    public static  Map<String, Object> correcta(String tipo, Sesion sesion) {
+    public static  Map<String, Object> correcta(String tipo, CreateSesion createSesion) {
 
         Map<String, Object> response = new HashMap<>();
 
         switch (tipo) {
             case "creacion": {
                 response.put(ParametersResponse.CODIGO.getParameter(), ResponseCode.CREACION_EXITOSA.getMsjCode());
-                response.put(ParametersResponse.ESTADO.getParameter(), DescriptionsResponse.MSJ_ESTADO.getDescription());
+                response.put(ParametersResponse.ESTADO.getParameter(), DescriptionsResponse.MSJ_ESTADO_EXITOSO.getDescription());
                 response.put(ParametersResponse.DESCRIPCION.getParameter(), DescriptionsResponse.MSJ_DESCRIPCION_CREACION_EXITOSA.getDescription());
-                response.put(ParametersResponse.TOKEN.getParameter(), JwtToken.getJWTToken(sesion));
+                response.put(ParametersResponse.TOKEN.getParameter(), JwtToken.getJWTToken(createSesion));
                 break;
             }
             case "validacion": {
-                System.out.println("se valido");
+                response.put(ParametersResponse.CODIGO.getParameter(), ResponseCode.VALIDACION_EXITOSA.getMsjCode());
+                response.put(ParametersResponse.ESTADO.getParameter(), DescriptionsResponse.MSJ_ESTADO_EXITOSO.getDescription());
+                response.put(ParametersResponse.DESCRIPCION.getParameter(), DescriptionsResponse.MSJ_DESCRIPCION_VALIDACION_EXITOSA.getDescription());
                 break;
             }
             case "eliminacion": {
-                System.out.println("se elimino");
+                response.put(ParametersResponse.CODIGO.getParameter(), ResponseCode.ELIMINACION_EXITOSA.getMsjCode());
+                response.put(ParametersResponse.ESTADO.getParameter(), DescriptionsResponse.MSJ_ESTADO_EXITOSO.getDescription());
+                response.put(ParametersResponse.DESCRIPCION.getParameter(), DescriptionsResponse.MSJ_DESCRIPCION_ELIMINACION_EXITOSA.getDescription());
+                break;
+            }
+            case "no-existe": {
+                response.put(ParametersResponse.CODIGO.getParameter(), ResponseCode.SESION_NO_EXISTE.getMsjCode());
+                response.put(ParametersResponse.ESTADO.getParameter(), DescriptionsResponse.MSJ_ESTADO_ERROR.getDescription());
+                response.put(ParametersResponse.DESCRIPCION.getParameter(), DescriptionsResponse.MSJ_DESCRIPCION_SESION_NO_EXISTE.getDescription());
                 break;
             }
             default: {
