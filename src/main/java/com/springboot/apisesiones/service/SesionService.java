@@ -17,14 +17,24 @@ public class SesionService {
 
     public Map<String, Object> createSesion(Sesion newSesion) {
 
-        if (Validate.parameters(newSesion) == null) {
+        if (Validate.parametersCreation(newSesion) == null) {
 
             sesionRepository.save(newSesion);
 
-            return BodyResponse.correcta("creacion",newSesion);
+            return BodyResponse.correcta("creacion", newSesion);
 
-        } else return Validate.parameters(newSesion);
+        } else return Validate.parametersCreation(newSesion);
 
+    }
+
+    public Map<String, Object> validateSesion(Sesion sesion) {
+
+        if (Validate.parametersValidation(sesion) == null &&
+                sesionRepository.findByCedula(sesion.getCedula()) != null) {
+
+            return BodyResponse.correcta("validacion", sesion);
+
+        } else return Validate.parametersValidation(sesion);
     }
 
 }

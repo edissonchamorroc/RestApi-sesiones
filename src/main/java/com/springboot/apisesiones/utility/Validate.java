@@ -20,7 +20,26 @@ public class Validate {
     private static List<Map<String, Object>> listResponse;
 
 
-    public static Map<String, Object> parameters(Sesion sesion) {
+    public static Map<String, Object> parametersCreation(Sesion sesion) {
+
+        if (validateIp(sesion)
+                || validateCedula(sesion)
+                || validateFechaInicio(sesion)
+                || validateHoraInicio(sesion)) {
+
+            Map<String, Object> response = new HashMap<>();
+            response.put(ParametersResponse.CODIGO.getParameter(), ResponseCode.IP_OBLIGATORIO.getMsjCode());
+            response.put(ParametersResponse.DESCRIPCION.getParameter(), DescriptionsResponse.MSJ_DESCRIPCION_ERROR_PARAMETRO.getDescription());
+            response.put(ParametersResponse.DETALLES.getParameter(), listResponse);
+
+            return response;
+
+        }
+
+        return null;
+    }
+
+    public static Map<String, Object> parametersValidation(Sesion sesion) {
 
         if (validateIp(sesion)
                 || validateCedula(sesion)
