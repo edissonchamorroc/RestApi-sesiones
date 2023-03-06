@@ -28,7 +28,7 @@ public class Validate {
                 || validateHoraInicio(sesion)) {
 
             Map<String, Object> response = new HashMap<>();
-            response.put(ParametersResponse.MENSAJE.getParameter(), ResponseCode.IP_OBLIGATORIO.getMsjCode());
+            response.put(ParametersResponse.CODIGO.getParameter(), ResponseCode.IP_OBLIGATORIO.getMsjCode());
             response.put(ParametersResponse.DESCRIPCION.getParameter(), DescriptionsResponse.MSJ_DESCRIPCION_ERROR_PARAMETRO.getDescription());
             response.put(ParametersResponse.DETALLES.getParameter(), listResponse);
 

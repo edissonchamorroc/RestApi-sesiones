@@ -85,7 +85,6 @@ public class BodyResponse {
             case "creacion": {
                 response.put(ParametersResponse.CODIGO.getParameter(), ResponseCode.CREACION_EXITOSA.getMsjCode());
                 response.put(ParametersResponse.ESTADO.getParameter(), DescriptionsResponse.MSJ_ESTADO.getDescription());
-                response.put(ParametersResponse.ESTADO.getParameter(), DescriptionsResponse.MSJ_ESTADO.getDescription());
                 response.put(ParametersResponse.DESCRIPCION.getParameter(), DescriptionsResponse.MSJ_DESCRIPCION_CREACION_EXITOSA.getDescription());
                 response.put(ParametersResponse.TOKEN.getParameter(), JwtToken.getJWTToken(sesion));
                 break;

@@ -1,4 +1,7 @@
 com\springboot\apisesiones\enums\ResponseCode.class
+com\springboot\apisesiones\model\ResponseCreateOk.class
+com\springboot\apisesiones\model\ResponseCreateBad.class
+com\springboot\apisesiones\configuration\SwaggerConfig.class
 com\springboot\apisesiones\entity\Sesion.class
 com\springboot\apisesiones\utility\Logica.class
 com\springboot\apisesiones\enums\ParametersResponse.class
