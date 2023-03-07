@@ -17,6 +17,8 @@ public enum DescriptionsResponse {
     MSJ_DESCRIPCION_FH_INCORRECTO("El parámetro FechaInicio es incorrecto, la fecha debe ser la actual y el formato de fecha dd/MM/yyyy"),
     MSJ_DESCRIPCION_HI_OBLIGATORIA("El parámetro HoraInicio es obligatorio"),
     MSJ_DESCRIPCION_HI_INCORRECTO("El parámetro HoraInicio es incorrecto, la fecha debe ser en formato de 24H y seguir la estructura hh:mm:ss"),
+    MSJ_DESCRIPCION_JWT_OBLIGATORIA("El parámetro Cedula es obligatorio"),
+    MSJ_DESCRIPCION_JWT_INCORRECTO("El parámetro jwt es incorrecto"),
     MSJ_DESCRIPCION_ERROR_PARAMETRO("Error en parámetro(s)")
     ;
 

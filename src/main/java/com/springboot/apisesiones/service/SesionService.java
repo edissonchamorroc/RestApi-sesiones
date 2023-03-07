@@ -1,14 +1,15 @@
 package com.springboot.apisesiones.service;
 
 import com.springboot.apisesiones.entity.CreateSesion;
+import com.springboot.apisesiones.entity.SesionEntity;
 import com.springboot.apisesiones.entity.ValidateDeleteSesion;
+import com.springboot.apisesiones.enums.ParametersResponse;
+import com.springboot.apisesiones.model.Response;
 import com.springboot.apisesiones.repository.SesionRepository;
 import com.springboot.apisesiones.utility.BodyResponse;
 import com.springboot.apisesiones.utility.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 public class SesionService {
@@ -16,29 +17,83 @@ public class SesionService {
     @Autowired
     private SesionRepository sesionRepository;
 
-    public Map<String, Object> createSesion(CreateSesion newSesion) {
+    public Response createSesion(CreateSesion newSesion) {
 
-        if (Validate.parametersCreation(newSesion) == null) {
+        Response response = Validate.parametersCreation(newSesion);//validacion de parámetro en body enviado por petición
+
+        eliminarSesionDuplicada(newSesion);//Elimina sesión si está duplicada
+
+        if (response == null) {
 
             sesionRepository.save(newSesion);
 
-            return BodyResponse.correcta("creacion", newSesion);
+            return BodyResponse.correcta(ParametersResponse.CREACION.getParameter(), newSesion);
 
-        } else return Validate.parametersCreation(newSesion);
+        } else return response;
 
     }
 
-    public Map<String, Object> validateSesion(ValidateDeleteSesion sesion) {
+    public Response validateSesion(ValidateDeleteSesion sesion) {
 
-        if (Validate.parametersValidation(sesion,sesionRepository.findByCedula(sesion.getCedula())) == null) {
+        SesionEntity sesionEnBD = sesionRepository.findByCedula(sesion.getCedula());
 
-            if (sesionRepository.findByCedula(sesion.getCedula()) != null) {
+        Response response = Validate.parametersValidation(
+                sesion,
+                (CreateSesion) sesionEnBD
+        );//validacion de parámetro en body enviado por petición
 
-                return BodyResponse.correcta("validacion", sesionRepository.findByCedula(sesion.getCedula()));
+
+        if (response == null) {
+
+            if (sesionEnBD != null &&
+                    sesionEnBD.getCedula().equals(sesion.getCedula()) &&
+                    sesionEnBD.getIp().equals(sesion.getIp())
+            ) {
+
+                return BodyResponse.correcta("validacion", sesionEnBD);
             }
-            return BodyResponse.correcta("no-existe", sesion);
 
-        } else return Validate.parametersValidation(sesion, sesionRepository.findByCedula(sesion.getCedula()));
+            return BodyResponse.correcta("no-existe", sesionEnBD);
+
+        } else return response;
     }
+
+    public Response deleteSesion(ValidateDeleteSesion sesion) {
+
+        SesionEntity sesionEnBD = sesionRepository.findByCedula(sesion.getCedula());
+
+        Response response = Validate.parametersValidation(
+                sesion,
+                (CreateSesion) sesionEnBD
+        );//validacion de parámetro en body enviado por petición
+
+
+        if (response == null) {
+
+            if (sesionEnBD != null &&
+                    sesionEnBD.getCedula().equals(sesion.getCedula()) &&
+                    sesionEnBD.getIp().equals(sesion.getIp())
+            ) {
+                this.sesionRepository.delete(sesion);
+                return BodyResponse.correcta("eliminacion", sesionEnBD);
+            }
+
+            return BodyResponse.correcta("no-existe", sesionEnBD);
+
+        } else return response;
+    }
+
+    public void eliminarSesionDuplicada(CreateSesion sesion) {
+
+        SesionEntity sesionDB = sesionRepository.findByCedula(sesion.getCedula());
+
+        if (sesionDB != null) {
+
+            this.sesionRepository.delete((CreateSesion) sesionDB);
+
+        }
+
+    }
+
 
 }

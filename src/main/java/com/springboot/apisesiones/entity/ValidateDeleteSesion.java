@@ -7,6 +7,7 @@ import lombok.Setter;
 public class ValidateDeleteSesion extends CreateSesion{
 
     @ApiModelProperty(position = 5)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String jwt;
 }

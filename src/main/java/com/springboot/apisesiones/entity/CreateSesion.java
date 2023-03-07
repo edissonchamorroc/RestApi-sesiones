@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
-public class CreateSesion {
+public class CreateSesion extends SesionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,23 +17,28 @@ public class CreateSesion {
     private Long id;
 
     @ApiModelProperty(position = 0)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String ip;
 
     @ApiModelProperty(position = 1)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String cedula;
 
     @ApiModelProperty(position = 2)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String fechaInicio;
 
     @ApiModelProperty(position = 3)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String navegador;
 
     @ApiModelProperty(position = 4)
-    @Getter @Setter
+    @Getter
+    @Setter
     private String horaInicio;
 
 
