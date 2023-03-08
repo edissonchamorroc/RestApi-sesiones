@@ -1,23 +1,17 @@
 package com.springboot.apisesiones.controller;
 
-import com.springboot.apisesiones.entity.Sesion;
-import com.springboot.apisesiones.model.ResponseCreateBad;
-import com.springboot.apisesiones.model.ResponseCreateOk;
+import com.springboot.apisesiones.entity.CreateSesion;
+import com.springboot.apisesiones.model.ValidateDeleteSesion;
+import com.springboot.apisesiones.model.ResponseBad;
+import com.springboot.apisesiones.model.ResponseOk;
 import com.springboot.apisesiones.service.SesionService;
-import com.springboot.apisesiones.utility.BodyResponse;
 import io.swagger.annotations.ApiOperation;
-
-
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -28,14 +22,40 @@ public class SesionController {
     private SesionService sesionService;
 
     @ApiOperation(value = "/api/sesiones/crear"
-            , notes = "Servicio para consumir el servicio de crear sesión, ingresando los parámetros solicitados.")
+            , notes = "Servicio para consumir el método de crear sesión, ingresando los parámetros solicitados.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK. Se crea sesión exitosamente", response = ResponseCreateOk.class),
-            @ApiResponse(code = 400, message = "Bad Request, la sesión no pudo ser creada", response = ResponseCreateBad.class),
+            @ApiResponse(code = 200, message = "La sesion ha sido creada exitosamente", response = ResponseOk.class),
+            @ApiResponse(code = 400, message = "Error en parámetro(s)", response = ResponseBad.class),
             @ApiResponse(code = 500, message = "Error inesperado del sistema")})
     @PostMapping(path = "/crear", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> postEmployee(@RequestBody Sesion newSesion) {
+    public ResponseEntity<Object> crearSesion(@RequestBody CreateSesion newCreateSesion) {
 
-        return new ResponseEntity<Object>(this.sesionService.createSesion(newSesion), HttpStatus.OK);
+        return this.sesionService.createSesion(newCreateSesion);
+    }
+
+    @ApiOperation(value = "/api/sesiones/validar"
+            , notes = "Servicio para consumir el método de validar sesión, ingresando los parámetros solicitados.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La sesion ha sido validada exitosamente", response = ResponseOk.class),
+            @ApiResponse(code = 202, message = "La sesion no ha sido creada", response = ResponseOk.class),
+            @ApiResponse(code = 400, message = "Error en parámetro(s)", response = ResponseBad.class),
+            @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @PostMapping(path = "/validar", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> validarSesion(@RequestBody ValidateDeleteSesion validateSesion) {
+
+        return this.sesionService.validateSesion(validateSesion);
+    }
+
+    @ApiOperation(value = "/api/sesiones/eliminar"
+            , notes = "Servicio para consumir el método de validar sesión, ingresando los parámetros solicitados.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La sesion ha sido eliminada exitosamente", response = ResponseOk.class),
+            @ApiResponse(code = 202, message = "La sesion no ha sido creada", response = ResponseOk.class),
+            @ApiResponse(code = 400, message = "Error en parámetro(s)", response = ResponseBad.class),
+            @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @DeleteMapping(path = "/eliminar", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> eliminarSesion(@RequestBody ValidateDeleteSesion validateSesion) {
+
+        return this.sesionService.deleteSesion(validateSesion);
     }
 }
