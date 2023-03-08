@@ -1,7 +1,7 @@
 package com.springboot.apisesiones.utility;
 
 import com.springboot.apisesiones.entity.CreateSesion;
-import com.springboot.apisesiones.entity.ValidateDeleteSesion;
+import com.springboot.apisesiones.model.ValidateDeleteSesion;
 import com.springboot.apisesiones.enums.DescriptionsResponse;
 import com.springboot.apisesiones.enums.ResponseCode;
 import com.springboot.apisesiones.model.Response;

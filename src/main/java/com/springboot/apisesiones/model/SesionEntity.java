@@ -1,6 +1,5 @@
-package com.springboot.apisesiones.entity;
+package com.springboot.apisesiones.model;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 

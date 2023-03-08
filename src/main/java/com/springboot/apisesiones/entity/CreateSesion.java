@@ -1,14 +1,14 @@
 package com.springboot.apisesiones.entity;
 
+import com.springboot.apisesiones.model.SesionEntity;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class CreateSesion extends SesionEntity {
 
     @Id

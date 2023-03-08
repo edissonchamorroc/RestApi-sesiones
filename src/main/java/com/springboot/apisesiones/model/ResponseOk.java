@@ -15,7 +15,7 @@ public class ResponseOk implements Response{
     public String codigo;
     @ApiModelProperty(position = 1)
     @Getter @Setter
-    public String descripcion;
+    public String mensaje;
     @ApiModelProperty(position = 2)
     @Getter @Setter
     public String token;
@@ -23,10 +23,10 @@ public class ResponseOk implements Response{
     @Getter @Setter
     public String estado;
 
-    public ResponseOk(String codigo, String descripcion,  String estado){
+    public ResponseOk(String codigo, String mensaje,  String estado){
         this.token = null;
         this.codigo = codigo;
-        this.descripcion = descripcion;
+        this.mensaje = mensaje;
         this.estado = estado;
     }
 

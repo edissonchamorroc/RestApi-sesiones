@@ -1,7 +1,6 @@
 package com.springboot.apisesiones.utility;
 
-import com.springboot.apisesiones.entity.CreateSesion;
-import com.springboot.apisesiones.entity.SesionEntity;
+import com.springboot.apisesiones.model.SesionEntity;
 import com.springboot.apisesiones.enums.DescriptionsResponse;
 import com.springboot.apisesiones.enums.ParametersResponse;
 import com.springboot.apisesiones.enums.ResponseCode;

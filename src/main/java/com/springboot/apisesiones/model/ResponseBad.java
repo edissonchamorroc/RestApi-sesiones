@@ -19,7 +19,7 @@ public class ResponseBad implements Response {
     @ApiModelProperty(position = 1)
     @Getter
     @Setter
-    private String descripcion;
+    private String mensaje;
     @ApiModelProperty(position = 2)
     @Getter
     @Setter
