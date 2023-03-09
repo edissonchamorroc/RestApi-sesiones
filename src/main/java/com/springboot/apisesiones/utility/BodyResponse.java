@@ -141,7 +141,7 @@ public class BodyResponse {
                 response = new ResponseOk(
                         ResponseCode.CREACION_EXITOSA.getMsjCode(),
                         DescriptionsResponse.MSJ_DESCRIPCION_CREACION_EXITOSA.getDescription(),
-                        JwtToken.getJWTToken(createSesion),
+                        JwtToken.getJWTToken(createSesion.getCedula(),createSesion.getIp()),
                         DescriptionsResponse.MSJ_ESTADO_EXITOSO.getDescription()
                 );
                 break;
