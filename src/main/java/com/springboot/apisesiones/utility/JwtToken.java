@@ -9,13 +9,13 @@ public class JwtToken {
 
     public static String secretKey = "proyectoSesiones";
 
-    public static String getJWTToken(SesionEntity createSesion) {
+    public static String getJWTToken(String cedula, String ip) {
 
 
         String token = Jwts
                 .builder()
-                .setId(createSesion.getCedula())
-                .claim("ip", createSesion.getIp())
+                .setId(cedula)
+                .claim("ip", ip)
                 .signWith(SignatureAlgorithm.HS512,
                         secretKey.getBytes())
                 .compact();

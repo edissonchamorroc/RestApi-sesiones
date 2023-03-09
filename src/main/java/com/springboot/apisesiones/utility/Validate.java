@@ -7,6 +7,8 @@ import com.springboot.apisesiones.enums.ResponseCode;
 import com.springboot.apisesiones.model.Response;
 import com.springboot.apisesiones.model.ResponseBadParameter;
 import com.springboot.apisesiones.model.ResponseBad;
+import com.springboot.apisesiones.repository.SesionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -19,6 +21,7 @@ public class Validate {
 
     private static final String SPLITER_DOT = "\\.";
     private static List<ResponseBadParameter> listResponse;
+
 
     public static Response parametersCreation(CreateSesion createSesion) {
 
@@ -40,7 +43,7 @@ public class Validate {
         } else return null;
     }
 
-    public static Response parametersValidation(ValidateDeleteSesion validateCreateSesion, CreateSesion cratedCreateSesion) {
+    public static Response parametersValidation(ValidateDeleteSesion validateCreateSesion) {
 
         listResponse = new ArrayList<>();
 
@@ -48,7 +51,7 @@ public class Validate {
         validateCedula(validateCreateSesion);
         validateFechaInicio(validateCreateSesion);
         validateHoraInicio(validateCreateSesion);
-        validateJwt(validateCreateSesion, cratedCreateSesion);
+        validateJwt(validateCreateSesion);
 
         if (!listResponse.isEmpty()) {
 
@@ -61,13 +64,13 @@ public class Validate {
         } else return null;
     }
 
-    public static void validateJwt(ValidateDeleteSesion validateCreateSesion, CreateSesion cratedCreateSesion) {
+    public static void validateJwt(ValidateDeleteSesion validateCreateSesion) {
 
         if (validateCreateSesion.getJwt() == null || validateCreateSesion.getJwt().isEmpty()) {
 
             listResponse.add(BodyResponse.error("jwt-obligatorio"));
 
-        } else if (!JwtToken.getJWTToken(cratedCreateSesion).equals(validateCreateSesion.getJwt())) {
+        } else if (!JwtToken.getJWTToken(validateCreateSesion.getCedula(), validateCreateSesion.getIp()).equals(validateCreateSesion.getJwt())) {
 
             listResponse.add(BodyResponse.error("jwt-incorrecto"));
 

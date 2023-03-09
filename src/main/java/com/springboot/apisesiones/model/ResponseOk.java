@@ -30,4 +30,9 @@ public class ResponseOk implements Response{
         this.estado = estado;
     }
 
+    public ResponseOk(String codigo, String mensaje){
+        this.codigo = codigo;
+        this.mensaje = mensaje;
+    }
+
 }
