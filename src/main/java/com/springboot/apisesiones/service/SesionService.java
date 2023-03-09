@@ -37,25 +37,19 @@ public class SesionService {
 
     public ResponseEntity<Object> validateSesion(ValidateDeleteSesion sesion) {
 
-        SesionEntity sesionEnBD = sesionRepository.findByCedula(sesion.getCedula());
-
         Response response = Validate.parametersValidation(
-                sesion,
-                (CreateSesion) sesionEnBD
+                sesion
         );//validacion de parámetro en body enviado por petición
-
 
         if (response == null) {
 
-            if (sesionEnBD != null &&
-                    sesionEnBD.getCedula().equals(sesion.getCedula()) &&
-                    sesionEnBD.getIp().equals(sesion.getIp())
-            ) {
+            if (validarSesionEnBD(sesion) &&
+                    sesionRepository.findByCedula(sesion.getCedula()).getIp().equals(sesion.getIp())) {
 
-                return new ResponseEntity<Object>(BodyResponse.correcta("validacion", sesionEnBD), HttpStatus.OK);
+                return new ResponseEntity<Object>(BodyResponse.correcta("validacion", null), HttpStatus.OK);
             }
 
-            return new ResponseEntity<Object>(BodyResponse.correcta("no-existe", sesionEnBD), HttpStatus.ACCEPTED);
+            return new ResponseEntity<Object>(BodyResponse.correcta("no-existe", null), HttpStatus.ACCEPTED);
 
         } else return new ResponseEntity<Object>(response, HttpStatus.BAD_REQUEST);
 
@@ -63,27 +57,24 @@ public class SesionService {
 
     public ResponseEntity<Object> deleteSesion(ValidateDeleteSesion sesion) {
 
-        SesionEntity sesionEnBD = sesionRepository.findByCedula(sesion.getCedula());
-
-        if (sesionEnBD != null) {
+        if (validarSesionEnBD(sesion)) {
 
             Response response = Validate.parametersValidation(
-                    sesion,
-                    (CreateSesion) sesionEnBD
+                    sesion
             );
             //validacion de parámetro en body enviado por petición
 
 
             if (response == null) {
 
-                this.sesionRepository.delete((CreateSesion) sesionEnBD);
+                this.sesionRepository.delete(this.sesionRepository.findByCedula(sesion.getCedula()));
 
-                return new ResponseEntity<Object>(BodyResponse.correcta("eliminacion", sesionEnBD), HttpStatus.OK);
+                return new ResponseEntity<Object>(BodyResponse.correcta("eliminacion", null), HttpStatus.OK);
 
             } else return new ResponseEntity<Object>(response, HttpStatus.BAD_REQUEST);
 
         }
-        return new ResponseEntity<Object>(BodyResponse.correcta("no-existe", sesionEnBD), HttpStatus.ACCEPTED);
+        return new ResponseEntity<Object>(BodyResponse.correcta("no-existe", null), HttpStatus.ACCEPTED);
 
     }
 
@@ -97,6 +88,11 @@ public class SesionService {
 
         }
 
+    }
+
+    public boolean validarSesionEnBD(ValidateDeleteSesion sesion) {
+
+        return (this.sesionRepository.findByCedula(sesion.getCedula()) != null) ? true : false;
     }
 
 
