@@ -35,12 +35,12 @@ public class SesionServiceTest {
 
     @BeforeEach
     void setup() {
-
+        // Antes de ejecutar las pruebas, cambiar fechaInicio con la fecha actual
         crearSesionBodyOk = new CreateSesion(
                 1L,
                 "192.12.122.235",
                 "1234567106",
-                "09/03/2023",
+                "10/03/2023",
                 "firefox",
                 "23:49:58"
         );
@@ -49,12 +49,13 @@ public class SesionServiceTest {
                 1L,
                 "192.12.122.235",
                 "1234567106",
-                "09/03/2023",
+                "10/03/2023",
                 "firefox",
                 "23:49:58",
                 JwtToken.getJWTToken(crearSesionBodyOk.getCedula(), crearSesionBodyOk.getIp())
         );
 
+        // Se establece mal el valor fechaInicio en los siguientes objetos, por temas de verficación en pruebas
         crearSesionBodyBad = new CreateSesion(
                 1L,
                 "192.12.122.235",

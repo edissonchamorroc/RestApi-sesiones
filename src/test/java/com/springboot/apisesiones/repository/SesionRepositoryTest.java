@@ -21,12 +21,12 @@ public class SesionRepositoryTest {
 
     @BeforeEach
     void setup() {
-
+        // Antes de ejecutar las pruebas, cambiar fechaInicio con la fecha actual
         sesion = new CreateSesion(
                 1L,
                 "192.12.122.214",
                 "12345671",
-                "09/03/2023",
+                "10/03/2023",
                 "firefox",
                 "23:49:58"
         );
