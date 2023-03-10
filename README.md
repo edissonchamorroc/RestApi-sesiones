@@ -49,6 +49,6 @@ Para construir y correr la aplicación, necesitas previamente tener instalado:
 * Para validar o eliminar sesión se debe inicialmente crear sesión y copiar el token jwt de respuesta
 para posteriormente ubicarlo en el cuerpo de la petición validar o eliminar.
 
-## Author :pencil:
+## Autor :pencil:
 
 * **[Edisson Chamorro](https://github.com/edissonchamorroc)**
