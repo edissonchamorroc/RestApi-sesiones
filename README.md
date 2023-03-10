@@ -22,7 +22,7 @@ En esta solución se propone exponer servicios que permiten la creación, valida
 
 ## Empezemos :clipboard:
 
-Estas instrucciones le ayudarán a copiar el proyecto y correrlo de manera local para propisitos de desarrollo.
+Estas instrucciones le ayudarán a copiar el proyecto y correrlo de manera local para proposito de desarrollo.
 
 ## Prerequisitos
 
