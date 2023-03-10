@@ -6,6 +6,9 @@ sesiones.
 
 En esta solución se propone exponer servicios que permiten la creación, validación y elimianción de una sesión a través de protocolos HTTP.
 
+Este proyecto fue construido con Java 1.8, Spring boot 2.7.9, Spring web, Spring Data, base de datos Postgresql y contiene pruebas unitarias con JUnit 5 y Mockito para el área 
+de repositorios, servicios y controlladores.
+
 #### Métodos soportados:
 
 * POST: Crear una nueva sesión
