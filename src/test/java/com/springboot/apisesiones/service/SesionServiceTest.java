@@ -46,7 +46,7 @@ public class SesionServiceTest {
         );
 
         validarEliminarSesionBodyOk = new ValidateDeleteSesion(
-                1L,
+
                 "192.12.122.235",
                 "1234567106",
                 "14/03/2023",
@@ -65,8 +65,8 @@ public class SesionServiceTest {
                 "23:49:58"
         );
 
-        validarEliminarSesionBodyBad= new ValidateDeleteSesion(
-                1L,
+        validarEliminarSesionBodyBad = new ValidateDeleteSesion(
+
                 "192.12.122.235",
                 "1234567106",
                 "08/03/2023",

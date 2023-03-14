@@ -15,4 +15,10 @@ public interface SesionEntity {
      String getCedula();
 
      String getIp();
+
+     String getFechaInicio();
+
+     String getNavegador();
+
+     String getHoraInicio();
 }
