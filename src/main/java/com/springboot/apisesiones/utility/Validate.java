@@ -1,12 +1,9 @@
 package com.springboot.apisesiones.utility;
 
 import com.springboot.apisesiones.entity.CreateSesion;
-import com.springboot.apisesiones.model.ValidateDeleteSesion;
+import com.springboot.apisesiones.model.*;
 import com.springboot.apisesiones.enums.DescriptionsResponse;
 import com.springboot.apisesiones.enums.ResponseCode;
-import com.springboot.apisesiones.model.Response;
-import com.springboot.apisesiones.model.ResponseBadParameter;
-import com.springboot.apisesiones.model.ResponseBad;
 import com.springboot.apisesiones.repository.SesionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -77,7 +74,7 @@ public class Validate {
         }
     }
 
-    public static void validateHoraInicio(CreateSesion createSesion) {
+    public static void validateHoraInicio(SesionEntity createSesion) {
 
         if (createSesion.getHoraInicio() == null || createSesion.getHoraInicio().isEmpty()) {
 
@@ -94,7 +91,7 @@ public class Validate {
     }
 
 
-    public static void validateFechaInicio(CreateSesion createSesion) {
+    public static void validateFechaInicio(SesionEntity createSesion) {
 
         String fechaHoy = new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis()));
 
@@ -112,7 +109,7 @@ public class Validate {
 
     }
 
-    public static void validateCedula(CreateSesion createSesion) {
+    public static void validateCedula(SesionEntity createSesion) {
 
         if (createSesion.getCedula() == null || createSesion.getCedula().isEmpty()) {
 
@@ -130,7 +127,7 @@ public class Validate {
 
     }
 
-    public static void validateIp(CreateSesion createSesion) {
+    public static void validateIp(SesionEntity createSesion) {
 
         if (createSesion.getIp() == null || createSesion.getIp().isEmpty()) {
 
