@@ -30,7 +30,9 @@ public class SwaggerConfig {
     private ApiInfo getApiInfo() {
         return new ApiInfo(
                 "Order Service API",
-                "Order Service API Description",
+                "Actualmente muchas aplicaciones, como los portales transaccionales, presentan vulnerabilidad de multiple sesiones generadas a través de diferentes dispositivos como laptos, celular, etc. Es por ello que se propone como solución la construcción de una API la cual se encargue de manejar las sesiones.\n" +
+                        "\n" +
+                        "En esta solución se propone exponer servicios que permiten la creación, validación y elimianción de una sesión a través de protocolos HTTP.",
                 "1.0",
                 "http://codmind.com/terms",
                 new Contact("Edisson Chamorro", "https://www.linkedin.com/in/john-edisson-chamorro-coral-76ab74228/", "john.chamorroc@gmail.com"),

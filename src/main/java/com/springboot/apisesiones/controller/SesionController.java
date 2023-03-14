@@ -21,41 +21,41 @@ public class SesionController {
     @Autowired
     private SesionService sesionService;
 
-    @ApiOperation(value = "/api/sesiones/crear"
+    @ApiOperation(value = "Crea nueva sesión"
             , notes = "Servicio para consumir el método de crear sesión, ingresando los parámetros solicitados.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La sesion ha sido creada exitosamente", response = ResponseOk.class),
             @ApiResponse(code = 400, message = "Error en parámetro(s)", response = ResponseBad.class),
-            @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+            @ApiResponse(code = 500, message = "La petición sufrió alguna excepción no controlada.")})
     @PostMapping(path = "/crear", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> crearSesion(@RequestBody CreateSesion newCreateSesion) {
+    public ResponseEntity<Object> crearSesion(@RequestBody CreateSesion newSesion) {
 
-        return this.sesionService.createSesion(newCreateSesion);
+        return this.sesionService.createSesion(newSesion);
     }
 
-    @ApiOperation(value = "/api/sesiones/validar"
+    @ApiOperation(value = "Validar sesión"
             , notes = "Servicio para consumir el método de validar sesión, ingresando los parámetros solicitados.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La sesion ha sido validada exitosamente", response = ResponseOk.class),
             @ApiResponse(code = 202, message = "La sesion no ha sido creada", response = ResponseOk.class),
             @ApiResponse(code = 400, message = "Error en parámetro(s)", response = ResponseBad.class),
-            @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+            @ApiResponse(code = 500, message = "La petición sufrió alguna excepción no controlada.")})
     @PostMapping(path = "/validar", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> validarSesion(@RequestBody ValidateDeleteSesion validateSesion) {
 
         return this.sesionService.validateSesion(validateSesion);
     }
 
-    @ApiOperation(value = "/api/sesiones/eliminar"
+    @ApiOperation(value = "Eliminar sesión"
             , notes = "Servicio para consumir el método de validar sesión, ingresando los parámetros solicitados.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La sesion ha sido eliminada exitosamente", response = ResponseOk.class),
             @ApiResponse(code = 202, message = "La sesion no ha sido creada", response = ResponseOk.class),
             @ApiResponse(code = 400, message = "Error en parámetro(s)", response = ResponseBad.class),
-            @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+            @ApiResponse(code = 500, message = "La petición sufrió alguna excepción no controlada.")})
     @DeleteMapping(path = "/eliminar", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> eliminarSesion(@RequestBody ValidateDeleteSesion validateSesion) {
+    public ResponseEntity<Object> eliminarSesion(@RequestBody ValidateDeleteSesion deleteSesion) {
 
-        return this.sesionService.deleteSesion(validateSesion);
+        return this.sesionService.deleteSesion(deleteSesion);
     }
 }

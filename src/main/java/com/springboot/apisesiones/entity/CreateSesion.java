@@ -9,7 +9,9 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateSesion extends SesionEntity {
+@ToString
+@Builder
+public class CreateSesion implements SesionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
