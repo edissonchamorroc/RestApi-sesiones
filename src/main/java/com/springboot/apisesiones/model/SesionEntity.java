@@ -1,27 +1,18 @@
 package com.springboot.apisesiones.model;
 
-import lombok.Getter;
-import lombok.Setter;
+public interface SesionEntity {
 
-public abstract class SesionEntity {
+     String ip= null;
 
-    @Getter
-    @Setter
-    private String ip;
+     String cedula= null;
 
-    @Getter
-    @Setter
-    private String cedula;
+     String fechaInicio= null;
 
-    @Getter
-    @Setter
-    private String fechaInicio;
+     String navegador= null;
 
-    @Getter
-    @Setter
-    private String navegador;
+     String horaInicio= null;
 
-    @Getter
-    @Setter
-    private String horaInicio;
+     String getCedula();
+
+     String getIp();
 }
