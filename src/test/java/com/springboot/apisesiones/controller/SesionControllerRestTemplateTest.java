@@ -5,7 +5,6 @@ import com.springboot.apisesiones.entity.CreateSesion;
 import com.springboot.apisesiones.enums.DescriptionsResponse;
 import com.springboot.apisesiones.enums.ResponseCode;
 import com.springboot.apisesiones.model.ResponseOk;
-import com.springboot.apisesiones.model.ValidateDeleteSesion;
 import com.springboot.apisesiones.utility.JwtToken;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -17,7 +16,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
